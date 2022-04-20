@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Container, Row, Col, Button } from 'react-bootstrap';
 
@@ -7,6 +7,10 @@ import ImageContainer from '../features/image/ImageContainer';
 
 function Image() {
   const navigate = useNavigate();
+
+  useEffect(() => {
+    document.title = 'Изображение';
+  });
 
   return (
     <PageLayout>
