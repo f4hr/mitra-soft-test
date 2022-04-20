@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "description": "Simple gallery app",
   "private": true,
+  "homepage": "https://f4hr-mitra-soft-test.netlify.app/",
   "author": {
     "name": "Ilya Fakhrutdinov",
     "email": "ilyaf4hr@gmail.com",
