@@ -1,0 +1,10 @@
+extends:
+  - react-app
+  - airbnb
+  - airbnb/hooks
+  - prettier
+plugins:
+  - prettier
+rules:
+  prettier/prettier: error
+  default-param-last: off
