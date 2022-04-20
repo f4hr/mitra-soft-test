@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Container, Row, Col, Button } from 'react-bootstrap';
 
 import PageLayout from '../common/PageLayout';
+import ImageContainer from '../features/image/ImageContainer';
 
 function Image() {
   const navigate = useNavigate();
@@ -18,7 +19,9 @@ function Image() {
           </Col>
         </Row>
         <Row className="w-100 justify-content-center">
-          <Col>Image</Col>
+          <Col>
+            <ImageContainer />
+          </Col>
         </Row>
       </Container>
     </PageLayout>
