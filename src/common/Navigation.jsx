@@ -4,6 +4,7 @@ import { Navbar, Container, Offcanvas, Nav } from 'react-bootstrap';
 
 import routes from '../routes';
 import Avatar from '../assets/images/photo.jpg';
+import { ReactComponent as GitHub } from '../assets/images/github.svg';
 
 const USER_NAME = 'Илья Фахрутдинов';
 const USER_EMAIL = 'ilyaf4hr@gmail.com';
@@ -19,6 +20,14 @@ function Navigation() {
       <Navbar bg="light" expand={false}>
         <Container fluid>
           <Navbar.Toggle onClick={handleShow} aria-controls="offcanvasNavbar" />
+          <a
+            href="https://github.com/f4hr/mitra-soft-test"
+            target="_blank"
+            rel="noreferrer"
+            title="GitHub"
+          >
+            <GitHub />
+          </a>
         </Container>
       </Navbar>
       <Offcanvas
