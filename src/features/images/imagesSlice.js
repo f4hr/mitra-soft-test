@@ -5,6 +5,7 @@ import routes from '../../routes';
 import { loadingStates, getImages as getPhotos } from '../../api';
 
 const ITEMS_IN_CATEGORY = 6;
+const DEFAULT_CATEGORY_NAME = 'Категория';
 
 const actionTypes = {
   getImages: 'images/getImages',
@@ -63,11 +64,11 @@ const ImageReducer = (state = initialState, { type, payload }) => {
       return { ...state, status: loadingStates.loading };
     case actionTypes.getImagesSuccess: {
       let albumId = 1;
-      const categories = [{ id: albumId, title: `Category ${albumId}` }];
+      const categories = [{ id: albumId, title: `${DEFAULT_CATEGORY_NAME} ${albumId}` }];
       const items = payload.map((item, idx) => {
         if (idx > 0 && idx % ITEMS_IN_CATEGORY === 0) {
           albumId += 1;
-          categories.push({ id: albumId, title: `Category ${albumId}` });
+          categories.push({ id: albumId, title: `${DEFAULT_CATEGORY_NAME} ${albumId}` });
         }
         return {
           id: item.id,
