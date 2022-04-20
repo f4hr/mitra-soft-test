@@ -1,8 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import Navigation from './Navigation';
+
 function PageLayout({ children }) {
-  return <main>{children}</main>;
+  return (
+    <>
+      <header>
+        <Navigation />
+      </header>
+      <main>{children}</main>
+    </>
+  );
 }
 
 PageLayout.propTypes = {
