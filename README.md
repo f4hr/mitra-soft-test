@@ -1,3 +1,5 @@
+[![Netlify Status](https://api.netlify.com/api/v1/badges/5de9b022-0bc3-40c4-9610-7d214074e7b5/deploy-status)](https://app.netlify.com/sites/f4hr-mitra-soft-test/deploys)
+
 ## Available Scripts
 
 In the project directory, you can run:
