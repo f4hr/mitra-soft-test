@@ -1,0 +1,12 @@
+.card-w-hover {
+  .card-img-overlay {
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease-in-out;
+  }
+
+  &:hover .card-img-overlay {
+    opacity: 1;
+    pointer-events: all;
+  }
+}
