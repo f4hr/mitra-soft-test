@@ -8,6 +8,7 @@ export default {
   imagesPath: () => [host, 'images'].join('/'),
   imagePath: (id) => [host, 'images', id].join('/'),
   apiBasePath: () => api,
-  apiImagesPath: ({ limit = 24 }) => [api, 'photos', `?_limit=${limit}`].join('/'),
-  apiImagePath: (id) => [api, 'photos', id].join('/'),
+  apiAlbumsPath: (params) =>
+    [api, 'albums', `?${new URLSearchParams(params).toString()}`].join('/'),
+  apiPhotoPath: (id) => [api, 'photos', id].join('/'),
 };

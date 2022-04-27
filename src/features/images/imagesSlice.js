@@ -1,34 +1,32 @@
 import { takeLatest, put, call } from 'redux-saga/effects';
 import { createSelector } from 'reselect';
 
-import routes from '../../routes';
-import { loadingStates, getImages as getPhotos } from '../../api';
+import { loadingStates, getAlbums } from '../../api';
 
-const ITEMS_IN_CATEGORY = 6;
-const DEFAULT_CATEGORY_NAME = 'Категория';
+const ITEMS_IN_CATEGORY_LIMIT = 6;
 
 const actionTypes = {
-  getImages: 'images/getImages',
-  getImagesSuccess: 'images/getImagesSuccess',
-  getImagesFail: 'images/getImagesFail',
+  getCategories: 'images/getCategories',
+  getCategoriesSuccess: 'images/getCategoriesSuccess',
+  getCategoriesFail: 'images/getCategoriesFail',
   setCategory: 'image/setCategory',
 };
 
 /**
  * Actions
  */
-export const getImages = (params) => ({
-  type: actionTypes.getImages,
+export const getCategories = (params) => ({
+  type: actionTypes.getCategories,
   payload: params,
 });
 
-const getImagesSuccess = (images) => ({
-  type: actionTypes.getImagesSuccess,
+const getCategoriesSuccess = (images) => ({
+  type: actionTypes.getCategoriesSuccess,
   payload: images,
 });
 
-const getImagesFail = (error) => ({
-  type: actionTypes.getImagesFail,
+const getCategoriesFail = (error) => ({
+  type: actionTypes.getCategoriesFail,
   payload: error,
 });
 
@@ -60,25 +58,14 @@ const initialState = {
  */
 const ImageReducer = (state = initialState, { type, payload }) => {
   switch (type) {
-    case actionTypes.getImages:
+    case actionTypes.getCategories:
       return { ...state, status: loadingStates.loading };
-    case actionTypes.getImagesSuccess: {
-      let albumId = 1;
-      const categories = [{ id: albumId, title: `${DEFAULT_CATEGORY_NAME} ${albumId}` }];
-      const items = payload.map((item, idx) => {
-        if (idx > 0 && idx % ITEMS_IN_CATEGORY === 0) {
-          albumId += 1;
-          categories.push({ id: albumId, title: `${DEFAULT_CATEGORY_NAME} ${albumId}` });
-        }
-        return {
-          id: item.id,
-          albumId,
-          title: item.title,
-          url: item.url,
-          thumbnailUrl: item.thumbnailUrl,
-          resourceUrl: routes.imagePath(item.id),
-        };
-      });
+    case actionTypes.getCategoriesSuccess: {
+      const items = payload.reduce(
+        (acc, { photos }) => [...acc, ...photos.slice(0, ITEMS_IN_CATEGORY_LIMIT)],
+        []
+      );
+      const categories = payload.map(({ id, title }) => ({ id, title }));
       const newImagesEntities = items.reduce((acc, item) => ({ ...acc, [item.id]: item }), {});
       const newCategoriesEntities = categories.reduce(
         (acc, item) => ({ ...acc, [item.id]: item }),
@@ -102,7 +89,7 @@ const ImageReducer = (state = initialState, { type, payload }) => {
         },
       };
     }
-    case actionTypes.getImagesFail:
+    case actionTypes.getCategoriesFail:
       return {
         ...state,
         status: loadingStates.failed,
@@ -163,17 +150,17 @@ export const selectCurrentItem = (state, imageId) =>
 /**
  * Saga
  */
-function* onGetImages(action) {
+function* onGetCategories(action) {
   try {
-    const response = yield call(getPhotos, action.payload);
-    yield put(getImagesSuccess(response));
+    const response = yield call(getAlbums, action.payload);
+    yield put(getCategoriesSuccess(response));
   } catch (error) {
-    yield put(getImagesFail(error));
+    yield put(getCategoriesFail(error));
   }
 }
 
 export function* ImageSaga() {
-  yield takeLatest(actionTypes.getImages, onGetImages);
+  yield takeLatest(actionTypes.getCategories, onGetCategories);
 }
 
 export default ImageReducer;

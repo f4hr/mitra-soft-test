@@ -2,7 +2,7 @@ import React, { useEffect, useMemo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import {
-  getImages,
+  getCategories,
   selectCurrentCategoryId,
   selectItemsByCategory,
   selectStatus,
@@ -10,7 +10,7 @@ import {
 } from './imagesSlice';
 import Tabs from './Tabs';
 
-const LIMIT = 24;
+const LIMIT = 4;
 
 function Gallery() {
   const dispatch = useDispatch();
@@ -21,7 +21,7 @@ function Gallery() {
 
   useEffect(() => {
     if (itemsCount > 0) return;
-    dispatch(getImages({ limit: LIMIT }));
+    dispatch(getCategories({ _limit: LIMIT, _embed: 'photos' }));
   }, [itemsCount, dispatch]);
 
   const handleSetCategory = (key) => {

@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 import './ImageItem.scss';
 import { ImageItemPT } from './propTypes';
+import routes from '../../routes';
 
 const imgOverlayClassName = [
   'd-flex',
@@ -16,7 +17,7 @@ const imgOverlayClassName = [
 
 function ImageItem({ imageData }) {
   const navigate = useNavigate();
-  const { title, url, thumbnailUrl, resourceUrl } = imageData;
+  const { id, title, url, thumbnailUrl } = imageData;
   const [status, setStatus] = useState('loading');
 
   return (
@@ -37,7 +38,7 @@ function ImageItem({ imageData }) {
         />
       </Ratio>
       <Card.ImgOverlay className={imgOverlayClassName}>
-        <Button onClick={() => navigate(resourceUrl)} variant="light">
+        <Button onClick={() => navigate(routes.imagePath(id))} variant="light">
           Подробнее
         </Button>
       </Card.ImgOverlay>

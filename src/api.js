@@ -27,14 +27,14 @@ client.interceptors.response.use(async (response) => {
   return response.data;
 });
 
-export const getImages = async (params) => {
-  const items = await client.get(routes.apiImagesPath(params));
+export const getAlbums = async (params) => {
+  const albums = await client.get(routes.apiAlbumsPath(params));
 
-  return items;
+  return albums;
 };
 
 export const getImage = async (id) => {
-  const imageData = await client.get(routes.apiImagePath(id));
+  const imageData = await client.get(routes.apiPhotoPath(id));
 
   return imageData;
 };
